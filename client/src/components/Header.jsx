@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 const Header = () => {
 	return (
 		<Card sx={{ marginTop: 5, backgroundColor: 'grey' }} raised>
-			<Link to='/home'>
+			<Link to='/'>
 				<Button sx={{ color: 'white' }} variant='text'>
 					Home
 				</Button>

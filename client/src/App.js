@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container'
-import ChatWindow from './components/ChatWindow'
+import Box from '@mui/material/Box'
 import { Outlet } from 'react-router-dom'
 import Header from './components/Header'
 function App() {
@@ -7,8 +7,9 @@ function App() {
 		<div>
 			<Container>
 				<Header />
-				<Outlet />
-				{/* <ChatWindow /> */}
+				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Outlet />
+				</Box>
 			</Container>
 		</div>
 	)

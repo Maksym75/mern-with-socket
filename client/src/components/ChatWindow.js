@@ -52,55 +52,53 @@ const ChatWindow = () => {
 		)
 	}
 	return (
-		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-			<Card
-				sx={{
-					padding: 2,
-					marginTop: 10,
-					width: '60%',
-					backgroundColor: 'gray',
-				}}
-			>
-				<Box sx={{ marginBottom: 10 }}>
-					{chat.map(data => (
-						<Typography
-							sx={{ textAlign: !data.received ? 'right' : 'left' }}
-							key={data.id}
-						>
-							{data.message}
-						</Typography>
-					))}
-				</Box>
-				<Box component='form' onSubmit={handleForm}>
-					{typing && (
-						<InputLabel sx={{ color: 'white' }} shrink htmlFor='message-input'>
-							Typing...
-						</InputLabel>
-					)}
+		<Card
+			sx={{
+				padding: 2,
+				marginTop: 10,
+				width: '60%',
+				backgroundColor: 'gray',
+			}}
+		>
+			<Box sx={{ marginBottom: 10 }}>
+				{chat.map(data => (
+					<Typography
+						sx={{ textAlign: !data.received ? 'right' : 'left' }}
+						key={data.id}
+					>
+						{data.message}
+					</Typography>
+				))}
+			</Box>
+			<Box component='form' onSubmit={handleForm}>
+				{typing && (
+					<InputLabel sx={{ color: 'white' }} shrink htmlFor='message-input'>
+						Typing...
+					</InputLabel>
+				)}
 
-					<OutlinedInput
-						// <TextField
-						sx={{
-							backgroundColor: 'white',
-						}}
-						size='small'
-						fullWidth
-						id='message-input'
-						placeholder='Write your message'
-						value={message}
-						inputProps={{ 'aria-label': 'search google maps' }}
-						onChange={handleInput}
-						endAdornment={
-							<InputAdornment position='end'>
-								<IconButton type='submit' edge='end'>
-									<SendIcon />
-								</IconButton>
-							</InputAdornment>
-						}
-					/>
-				</Box>
-			</Card>
-		</Box>
+				<OutlinedInput
+					// <TextField
+					sx={{
+						backgroundColor: 'white',
+					}}
+					size='small'
+					fullWidth
+					id='message-input'
+					placeholder='Write your message'
+					value={message}
+					inputProps={{ 'aria-label': 'search google maps' }}
+					onChange={handleInput}
+					endAdornment={
+						<InputAdornment position='end'>
+							<IconButton type='submit' edge='end'>
+								<SendIcon />
+							</IconButton>
+						</InputAdornment>
+					}
+				/>
+			</Box>
+		</Card>
 	)
 }
 
