@@ -8,19 +8,20 @@ import InputAdornment from '@mui/material/InputAdornment'
 import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
 import { v4 as uuidv4 } from 'uuid'
-import { io } from 'socket.io-client'
+import { useOutletContext } from 'react-router-dom'
+// import { io } from 'socket.io-client'
 
 const ChatWindow = () => {
-	const [socket, setSocket] = useState(null)
+	const [socket] = useOutletContext()
 	const [message, setMessage] = useState('')
 	const [chat, setChat] = useState([])
 	const [typing, setTyping] = useState(false)
 	const [typingTimeout, setTypingTimeout] = useState(null)
 
 	//* тут 4000 потому что наш Backend на нем
-	useEffect(() => {
-		setSocket(io('http://localhost:4000'))
-	}, [])
+	// useEffect(() => {
+	// 	setSocket(io('http://localhost:4000'))
+	// }, [])
 	useEffect(() => {
 		if (!socket) return
 		socket.on('message-from-server', data => {

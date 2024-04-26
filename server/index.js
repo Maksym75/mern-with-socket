@@ -36,6 +36,10 @@ io.on('connection', socket => {
 	socket.on('typing-stopped', () => {
 		socket.broadcast.emit('typing-stopped-from-server')
 	})
+	socket.on('join-room', ({ roomId }) => {
+		socket.join(roomId)
+		console.log('Joining Room')
+	})
 
 	socket.on('disconnect', () => {
 		console.log('User Left')
