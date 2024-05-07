@@ -8,11 +8,12 @@ import InputAdornment from '@mui/material/InputAdornment'
 import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
 import { v4 as uuidv4 } from 'uuid'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext, useParams } from 'react-router-dom'
 // import { io } from 'socket.io-client'
 
 const ChatWindow = () => {
-	const [socket] = useOutletContext()
+	const { socket } = useOutletContext()
+	const { roomId } = useParams()
 	const [message, setMessage] = useState('')
 	const [chat, setChat] = useState([])
 	const [typing, setTyping] = useState(false)
@@ -37,18 +38,18 @@ const ChatWindow = () => {
 
 	const handleForm = e => {
 		e.preventDefault()
-		socket.emit('send-message', { message })
+		socket.emit('send-message', { message, roomId })
 		setChat(prev => [...prev, { message, received: false, id: uuidv4() }])
 
 		setMessage('')
 	}
 	const handleInput = e => {
 		setMessage(e.target.value)
-		socket.emit('typing-started')
+		socket.emit('typing-started', { roomId })
 		if (typingTimeout) clearTimeout(typingTimeout)
 		setTypingTimeout(
 			setTimeout(() => {
-				socket.emit('typing-stopped')
+				socket.emit('typing-stopped', { roomId })
 			}, 1000)
 		)
 	}
@@ -61,6 +62,7 @@ const ChatWindow = () => {
 				backgroundColor: 'gray',
 			}}
 		>
+			{roomId && <Typography>Room {roomId}</Typography>}
 			<Box sx={{ marginBottom: 10 }}>
 				{chat.map(data => (
 					<Typography

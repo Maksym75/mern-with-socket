@@ -14,7 +14,7 @@ function App() {
 			<Container>
 				<Header />
 				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-					<Outlet context={[socket, setSocket]} />
+					<Outlet context={{ socket }} />
 				</Box>
 			</Container>
 		</div>
