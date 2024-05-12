@@ -20,6 +20,8 @@ const sockets = socket => {
 	socket.on('typing-started', typingController.typingStarted)
 	socket.on('typing-stopped', typingController.typingStopped)
 	socket.on('join-room', roomController.joinRoom)
+	socket.on('new-room-created', roomController.newRoomCreated)
+	socket.on('room-removed', roomController.roomRemoved)
 
 	socket.on('disconnect', () => {
 		console.log('User Left')

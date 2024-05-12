@@ -5,7 +5,7 @@ export default class MessageController extends BaseController {
 		// let skt = this.socket.broadcast
 		// skt = roomId ? skt.to(roomId) : skt
 		// skt.emit('message-from-server', { message, roomId })
-		const skt = this.applyRoomFilter(roomId)
+		const skt = this.filterSocketBySameId(roomId)
 		skt.emit('message-from-server', { message, roomId })
 	}
 }

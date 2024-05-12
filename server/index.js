@@ -7,6 +7,17 @@ import { dirname, join } from 'path'
 
 import sockets from './socket/sockets.js'
 
+import mongoose from 'mongoose'
+
+import router from './Api/routes.js'
+import cors from 'cors'
+
+await mongoose.connect(
+	'mongodb+srv://mern-socket123:mern-socket123@cluster0.qrdp1pk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+)
+//'mongodb+srv://mern-socket123:mern-socket123@cluster0.qrdp1pk.mongodb.net/'
+// 'mongodb+srv://mern-socket123:mern-socket123@cluster0.qrdp1pk.mongodb.net'
+// 'mongodb+srv://mern-socket123:mern-socket123@cluster0.qrdp1pk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const app = express()
 
 const PORT = 4000
@@ -20,9 +31,14 @@ const io = new Server(httpServer, {
 	},
 })
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+app.use(cors())
+
 app.get('/', (req, res) => {
 	res.sendFile(join(__dirname, 'index.html'))
 })
+
+app.use('/', router)
 
 io.on('connection', sockets)
 

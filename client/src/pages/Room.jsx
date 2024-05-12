@@ -12,7 +12,7 @@ const Room = () => {
 	useEffect(() => {
 		if (!socket) return
 		socket.emit('join-room', { roomId: params.roomId })
-		console.log(params)
+		// console.log(params)
 	}, [socket, params])
 	return <ChatWindow />
 }

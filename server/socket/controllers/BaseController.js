@@ -5,7 +5,7 @@ export default class BaseController {
 		this.socket = socket
 	}
 
-	applyRoomFilter = roomId => {
+	filterSocketBySameId = roomId => {
 		let skt = this.socket.broadcast
 		return (skt = roomId ? skt.to(roomId) : skt)
 	}

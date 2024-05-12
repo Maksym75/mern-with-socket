@@ -7,8 +7,9 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
 import { v4 as uuidv4 } from 'uuid'
-import { useOutletContext, useParams } from 'react-router-dom'
+import { useOutletContext, useParams, useNavigate } from 'react-router-dom'
 // import { io } from 'socket.io-client'
 
 const ChatWindow = () => {
@@ -18,6 +19,8 @@ const ChatWindow = () => {
 	const [chat, setChat] = useState([])
 	const [typing, setTyping] = useState(false)
 	const [typingTimeout, setTypingTimeout] = useState(null)
+
+	const navigate = useNavigate()
 
 	//* тут 4000 потому что наш Backend на нем
 	// useEffect(() => {
@@ -53,6 +56,14 @@ const ChatWindow = () => {
 			}, 1000)
 		)
 	}
+
+	async function removeRoom() {
+		// const res = await fetch(`http://localhost:4000/rooms/${roomId}`, {
+		// 	method: 'DELETE',
+		// })
+		socket.emit('room-removed', { roomId })
+		navigate('/')
+	}
 	return (
 		<Card
 			sx={{
@@ -62,7 +73,20 @@ const ChatWindow = () => {
 				backgroundColor: 'gray',
 			}}
 		>
-			{roomId && <Typography>Room {roomId}</Typography>}
+			<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+				{roomId && <Typography>Room {roomId}</Typography>}
+				{roomId && (
+					<Button
+						size='small'
+						variant='text'
+						sx={{ color: 'orange' }}
+						onClick={removeRoom}
+					>
+						Delete room
+					</Button>
+				)}
+			</Box>
+
 			<Box sx={{ marginBottom: 10 }}>
 				{chat.map(data => (
 					<Typography
